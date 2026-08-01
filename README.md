@@ -2,18 +2,18 @@
 
 # AtheryX
 
-**Self-hosted authentication, licensing & subscription infrastructure for modern software.**
+**Authentication, licensing & subscription infrastructure — made for everyone.**
 
 [![Website](https://img.shields.io/badge/website-atheryxauth.cc-8B5CF6)](https://atheryxauth.cc)
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![API v1.1](https://img.shields.io/badge/API-v1.1-success)](docs/api-reference.md)
 
-AtheryX is a **private, self-hostable** authentication platform. Your user data, license keys, and
-session records stay under **your control** — never locked into a third-party vendor's cloud.
+AtheryX is a complete authentication, licensing, and subscription platform. Secure user
+authentication, hardware-bound license keys, subscriptions, and audit logs — all in one
+easy-to-integrate API, with drop-in SDKs for **JavaScript/Node.js, Python, C#, C++, Rust, and more**.
 
-Drop-in SDKs are provided for **JavaScript/Node.js, Python, C#, C++, Rust, and more**, plus a clean
-REST API. Ship secure auth, hardware-bound licensing, and subscriptions without stitching together
-fragmented services.
+Whether you're shipping your first side project or managing software used by millions, AtheryX gives
+you everything in one place without stitching together fragmented services.
 
 </div>
 
@@ -23,7 +23,7 @@ fragmented services.
 
 | Capability | What you get |
 |---|---|
-| 🔐 **Private & self-hosted** | Run it on your own infrastructure. Data stays yours. |
+| 👤 **Made for everyone** | Simple for side projects, powerful for large teams. |
 | 👤 **Secure authentication** | Username/password with bcrypt hashing, sessions, refresh-token rotation. |
 | 🗝️ **License keys** | Generate, validate and bind keys to hardware IDs (HWID). |
 | 📦 **Subscriptions** | Enforce expiry, tiers, and per-app entitlements. |
@@ -79,8 +79,7 @@ curl -X POST https://atheryxauth.cc/api/v1.1/licenses \
 - Sessions support **refresh-token rotation** and expiry.
 - HMAC-style request signing and IP whitelisting are available on dashboard-configured endpoints.
 
-Read the full [Security documentation](docs/security.md) and the
-[Self-hosting guide](docs/self-hosting.md) for deployment details.
+Read the full [Security documentation](docs/security.md) for details on how your data is protected.
 
 ## API reference
 
@@ -105,7 +104,6 @@ atheryx-public/
 ├── docs/
 │   ├── getting-started.md
 │   ├── api-reference.md
-│   ├── self-hosting.md
 │   └── security.md
 └── examples/
     ├── javascript/

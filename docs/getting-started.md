@@ -85,4 +85,3 @@ curl -X POST https://atheryxauth.cc/api/v1.1/licenses \
 - See [api-reference.md](api-reference.md) for every endpoint and its exact response schema.
 - Copy one of the [examples](../examples) to integrate the SDK in your language.
 - Read [security.md](security.md) to understand the trust model.
-- Follow [self-hosting.md](self-hosting.md) to deploy AtheryX on your own infrastructure.

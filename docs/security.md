@@ -1,7 +1,7 @@
 # Security
 
-AtheryX is designed so that authentication and licensing infrastructure is **private by default**.
-This document describes the security model you inherit when you use the platform or self-host it.
+AtheryX is built so that secure authentication and licensing are easy for everyone.
+This document describes the security model you inherit when you use the platform.
 
 ## Threat model
 
@@ -43,16 +43,16 @@ This document describes the security model you inherit when you use the platform
 - Discord/webhook notifications can be enabled for suspicious events such as failed logins.
 - Activity feeds and audit logs are visible in the dashboard.
 
-## Self-hosting
+## Data protection
 
-When you self-host AtheryX, the security of the underlying infrastructure is **yours**:
+AtheryX is a hosted platform. The security of the underlying infrastructure is handled for you:
 
-- Keep your **database URL** and **service-account credentials** out of public repositories.
-- Enable HTTPS at your reverse proxy (nginx / Caddy / Cloudflare).
-- Apply OS-level firewalls and regular updates.
-- Rotate application secrets periodically.
+- All traffic is served over **HTTPS**.
+- Passwords are hashed with bcrypt and never stored or logged in plaintext.
+- Sessions are short-lived and rotated server-side.
+- Application secrets are scoped per app and should be kept out of client-side bundles.
 
-See [self-hosting.md](self-hosting.md) for deployment guidance.
+Keep your own **application secrets** and **database credentials** out of public repositories.
 
 ## Reporting a vulnerability
 
