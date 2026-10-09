@@ -77,7 +77,10 @@ curl -X POST https://atheryxauth.cc/api/v1.1/licenses \
 - Licenses and accounts can be **hardware-bound (HWID)**, blocking credential sharing.
 - Optional **application hash checks** prevent modified/patched clients from calling the API.
 - Sessions support **refresh-token rotation** and expiry.
-- HMAC-style request signing and IP whitelisting are available on dashboard-configured endpoints.
+- Variable payloads are **encrypted (AES-256-CBC)** and **HMAC-SHA256-signed** with the session
+  `enckey`, so an intercepted response is ciphertext and a leaked `session_id` alone cannot
+  modify data. Plaintext variable writes are rejected.
+- IP whitelisting and per-endpoint rate limiting are configurable from the dashboard.
 
 Read the full [Security documentation](docs/security.md) for details on how your data is protected.
 
@@ -88,14 +91,19 @@ All endpoints live under `https://atheryxauth.cc/api/v1.1`. See
 
 | Endpoint | Method | Purpose |
 |---|---|---|
-| `/api/v1.1/init` | POST | Open an authenticated app session |
+| `/api/v1.1/init` | POST | Open an authenticated app session (returns `session_id` + `enckey`) |
 | `/api/v1.1/register` | POST | Create a new user for the app |
 | `/api/v1.1/login` | POST | Authenticate a user |
 | `/api/v1.1/session/refresh` | POST | Rotate the session token |
 | `/api/v1.1/licenses` | POST | Validate / bind a license key |
 | `/api/v1.1/logs` | POST | Push an app log line |
-| `/api/v1.1/variables` | GET/POST | Read app variables |
-| `/api/v1.1/variables/set` | POST | Write an app variable |
+| `/api/v1.1/variables` | POST | Read an app variable (encrypted response) |
+| `/api/v1.1/variables/set` | POST | Write an app variable (encrypted, HMAC-signed request) |
+| `/api/v1.1/claim-password` | POST | Set the password on a reseller/free-issued account |
+
+> Variable payloads are **encrypted with AES-256-CBC and HMAC-SHA256-signed** using the session
+> `enckey` returned by `init`. Plaintext variable writes are rejected. See
+> [Payload encryption](docs/api-reference.md#payload-encryption).
 
 ## Repository layout
 

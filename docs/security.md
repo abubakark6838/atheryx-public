@@ -31,6 +31,22 @@ This document describes the security model you inherit when you use the platform
 ### Sessions
 - Sessions are short-lived and carry a separate `refresh_token` for rotation.
 - Expired or invalidated sessions are rejected server-side.
+- `init` also returns an **`enckey`** — the per-session key used to encrypt and sign variable payloads.
+
+### Variable payloads
+Application variables are never sent or accepted as readable plaintext:
+
+- **Reads** (`POST /variables`) return an encrypted envelope instead of the value. Anyone
+  intercepting the response sees only ciphertext.
+- **Writes** (`POST /variables/set`) are rejected unless they carry a valid HMAC. Knowing or
+  guessing a `session_id` is not enough to modify data.
+- The key is derived from the session's `enckey` (`SHA-256(enckey)`), which only ever leaves the
+  server to the client that legitimately opened the session.
+- Cipher: **AES-256-CBC** with a random IV per payload; signature: **HMAC-SHA256**, compared in
+  constant time.
+
+See [Payload encryption](api-reference.md#payload-encryption) for the wire format and reference
+implementations.
 
 ### Request integrity
 - Optional **application hash checks** let you reject modified binaries.
